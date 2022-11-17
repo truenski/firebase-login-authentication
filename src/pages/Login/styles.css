@@ -1,3 +1,72 @@
+/* $white: #fff;
+$google-blue: #4285f4;
+$button-active-blue: #1669f2; */
+
+/*facebook: rgb(59, 89, 152)*/
+
+.google-btn {
+  width: 450px;
+  height: 42px;
+  border-radius: 20px;
+  border: #6a6a6a 1px solid;
+  background: transparent;
+  cursor: pointer;
+  color: #6a6a6a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.btn-text {
+  float: right;
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: row;
+  column-gap: 16px;
+  -webkit-box-align: center;
+  align-items: center;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  letter-spacing: 3px;
+}
+
+.btn-text img {
+  height: auto;
+  max-width: 16px;
+}
+
+.btn-text b {
+  font-family: 'Inter';
+}
+
+.google-btn:hover {
+  color: black;
+  border-color: black;
+}
+
+.trace {
+  margin: 12px 0px 20px;
+  flex: 1 1 0%;
+  border-top: 1px solid rgb(217, 218, 220);
+}
+
+.or {
+  flex: 0.3 1 0%;
+  align-self: center;
+  text-align: center;
+  line-height: 1px;
+  font-weight: 700;
+  font-size: 12px;
+  background: rgb(255, 255, 255);
+  text-transform: uppercase;
+}
+
+.orContainer {
+  display: flex;
+  flex-direction: row;
+  width: 450px;
+}
+
 .container {
   width: 100vw;
   height: 100vh;
@@ -44,7 +113,7 @@
   flex-direction: row;
   align-items: flex-start;
   padding: 16px;
-  width: 520px;
+  width: 450px;
   height: 49px;
   border: 1px solid #303030;
   border-radius: 12px;
@@ -61,7 +130,7 @@
 }
 
 .container form .button {
-  width: 520px;
+  width: 450px;
   height: 48px;
   background: #303030;
   border-radius: 12px;

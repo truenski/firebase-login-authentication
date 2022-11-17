@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import arrowImg from '../../assets/arrow.svg';
 import { auth } from '../../services/firebaseConfig';
 import './styles.css';
@@ -8,12 +8,13 @@ import './styles.css';
 export function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const navigate = useNavigate();
   const [createUserWithEmailAndPassword, user, loading, error] = useCreateUserWithEmailAndPassword(auth);
 
-  function handleSignOut(e) {
+  function handleCreateNewUser(e) {
     e.preventDefault();
-    createUserWithEmailAndPassword(email, password);
+    createUserWithEmailAndPassword(email, password).catch(res => console.log(res));
+    navigate('/');
   }
 
   if (loading) {
@@ -32,7 +33,7 @@ export function Register() {
             type="text"
             name="email"
             id="email"
-            placeholder="Johndoe@gmail.com"
+            placeholder="johndoe@gmail.com"
             onChange={e => setEmail(e.target.value)}
           />
         </div>
@@ -48,7 +49,7 @@ export function Register() {
           />
         </div>
 
-        <button onClick={handleSignOut} className="button">
+        <button onClick={handleCreateNewUser} className="button">
           Cadastrar <img src={arrowImg} alt="->" />
         </button>
         <div className="footer">

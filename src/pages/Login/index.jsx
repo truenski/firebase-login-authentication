@@ -1,33 +1,56 @@
-import { useState } from 'react';
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useState, useContext } from 'react';
+import { AuthGoogleContext } from '../../contexts/authGoogle';
 import { Link } from 'react-router-dom';
 import arrowImg from '../../assets/arrow.svg';
+
 import { auth } from '../../services/firebaseConfig';
+import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+
 import './styles.css';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { AuthEmailPasswdContext } from '../../contexts/authEmailPassword';
 
 export function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
+  const { signedStandard, signInStandard, errorStandard } = useContext(AuthEmailPasswdContext);
 
-  function handleSignIn(e) {
+  const navigate = useNavigate();
+
+  async function handleSignIn(e) {
     e.preventDefault();
-    signInWithEmailAndPassword(email, password);
+    await signInStandard(email, password);
+    console.log(errorStandard);
+    navigate('/dashboard');
   }
 
-  if (loading) {
-    return <p>carregando...</p>;
-  }
-  if (user) {
-    return <Navigate to="/dashboard" replace={true} />;
+  const { signInGoogle, signed } = useContext(AuthGoogleContext);
+  const handleLoginFromGoogle = async () => {
+    await signInGoogle();
+  };
+
+  if (signed || signedStandard) {
+    return <Navigate to="/dashboard" />;
   }
   return (
     <div className="container">
       <header className="header">
         <span>Por favor digite suas informações de login</span>
       </header>
+
+      <button onClick={handleLoginFromGoogle} className="google-btn">
+        <p className="btn-text">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />{' '}
+          <b>Continuar com Google</b>
+        </p>
+      </button>
+
+      <div className="orContainer">
+        <hr className="trace" />
+        <span className="or">OU</span>
+        <hr className="trace" />
+      </div>
 
       <form>
         <div className="inputContainer">
@@ -36,7 +59,7 @@ export function Login() {
             type="text"
             name="email"
             id="email"
-            placeholder="Johndoe@gmail.com"
+            placeholder="johndoe@gmail.com"
             onChange={e => setEmail(e.target.value)}
           />
         </div>
@@ -54,7 +77,7 @@ export function Login() {
 
         <a href="#">Esqueceu sua senha ?</a>
 
-        <button className="button" onClick={handleSignIn}>
+        <button className="button" onClick={e => handleSignIn(e)}>
           Entrar <img src={arrowImg} alt="->" />
         </button>
         <div className="footer">

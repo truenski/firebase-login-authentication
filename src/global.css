@@ -56,7 +56,7 @@ body {
   flex-direction: row;
   align-items: flex-start;
   padding: 16px;
-  width: 520px;
+  width: 450px;
   height: 49px;
   border: 1px solid #303030;
   border-radius: 12px;
@@ -73,7 +73,7 @@ body {
 }
 
 .container form .button {
-  width: 520px;
+  width: 450px;
   height: 48px;
   background: #303030;
   border-radius: 12px;
