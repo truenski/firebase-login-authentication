@@ -4,6 +4,22 @@ $button-active-blue: #1669f2; */
 
 /*facebook: rgb(59, 89, 152)*/
 
+.errorCard {
+  background: #e91429;
+  padding: 13px;
+  margin-bottom: 18px;
+  color: white;
+  width: 450px;
+}
+
+.errorCard span {
+  display: flex;
+  justify-content: center;
+  margin-left: -10px;
+  align-items: center;
+  gap: 12px;
+}
+
 .google-btn {
   width: 450px;
   height: 42px;

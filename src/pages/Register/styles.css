@@ -104,3 +104,19 @@
   text-decoration-line: underline;
   color: #595959;
 }
+
+.errorCard {
+  background: #e91429;
+  padding: 13px;
+  margin-bottom: 18px;
+  color: white;
+  width: 450px;
+}
+
+.errorCard span {
+  display: flex;
+  justify-content: start;
+  margin-left: 12px;
+  align-items: center;
+  gap: 12px;
+}

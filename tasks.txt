@@ -1,0 +1,5 @@
+//ver senha
+//tempo para token
+//enviar nova senha
+//salvar nova foto de perfil
+//tratar erros de cadastro direto do front

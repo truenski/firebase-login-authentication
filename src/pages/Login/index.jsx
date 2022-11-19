@@ -1,36 +1,34 @@
 import { useState, useContext } from 'react';
-import { AuthGoogleContext } from '../../contexts/authGoogle';
+import { AuthContext } from '../../contexts/authContext';
 import { Link } from 'react-router-dom';
 import arrowImg from '../../assets/arrow.svg';
 
-import { auth } from '../../services/firebaseConfig';
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
-
 import './styles.css';
 import { Navigate, useNavigate } from 'react-router-dom';
-import { AuthEmailPasswdContext } from '../../contexts/authEmailPassword';
+import { useEffect } from 'react';
+import Alert from '../../components/alert';
 
 export function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  const { signedStandard, signInStandard, errorStandard } = useContext(AuthEmailPasswdContext);
+  const { signInGoogle, signed, signIn, loading, error } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
   async function handleSignIn(e) {
     e.preventDefault();
-    await signInStandard(email, password);
-    console.log(errorStandard);
+    await signIn(email, password);
     navigate('/dashboard');
   }
 
-  const { signInGoogle, signed } = useContext(AuthGoogleContext);
   const handleLoginFromGoogle = async () => {
     await signInGoogle();
   };
 
-  if (signed || signedStandard) {
+  if (loading) {
+    return <div>Carregando...</div>;
+  }
+  if (signed) {
     return <Navigate to="/dashboard" />;
   }
   return (
@@ -38,7 +36,14 @@ export function Login() {
       <header className="header">
         <span>Por favor digite suas informações de login</span>
       </header>
-
+      {error ? (
+        <div className="errorCard">
+          <span>
+            <Alert />
+            Nome de usuário ou senha incorretos.
+          </span>
+        </div>
+      ) : undefined}
       <button onClick={handleLoginFromGoogle} className="google-btn">
         <p className="btn-text">
           <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />{' '}
